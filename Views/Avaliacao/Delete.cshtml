@@ -1,0 +1,56 @@
+﻿@model Avaliacao.Gama.Api.Avaliacao
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Avaliacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AvaliacaoNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvaliacaoNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Docente.DocenteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Docente.DocenteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Questionario.QuestionarioNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questionario.QuestionarioNome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

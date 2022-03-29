@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Avaliacao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AvaliacaoNome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Docente.DocenteID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Questionario.QuestionarioNome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvaliacaoNome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataRegistro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Docente.DocenteID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Questionario.QuestionarioNome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AvaliacaoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AvaliacaoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AvaliacaoID })
+        </td>
+    </tr>
+}
+
+</table>

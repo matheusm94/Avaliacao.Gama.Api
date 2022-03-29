@@ -1,0 +1,50 @@
+﻿@model Avaliacao.Gama.Api.Avaliacao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Avaliacao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AvaliacaoNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AvaliacaoNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataRegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataRegistro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Docente.DocenteID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Docente.DocenteID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Questionario.QuestionarioNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Questionario.QuestionarioNome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AvaliacaoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

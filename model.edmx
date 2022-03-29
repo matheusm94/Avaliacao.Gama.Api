@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="modelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="AvaliacaoID" />
+          </Key>
+          <Property Name="AvaliacaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvaliacaoNome" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DocenteID" Type="int" Nullable="false" />
+          <Property Name="QuestionarioID" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvaliacaoEstudante">
+          <Key>
+            <PropertyRef Name="AvaliacaoEstudanteID" />
+          </Key>
+          <Property Name="AvaliacaoEstudanteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvaliacaoID" Type="int" Nullable="false" />
+          <Property Name="EstudanteID" Type="int" Nullable="false" />
+          <Property Name="DataInicio" Type="datetime" />
+          <Property Name="DataFim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AvaliacaoEstudanteResposta">
+          <Key>
+            <PropertyRef Name="AvaliacaoEstudanteRespostaID" />
+          </Key>
+          <Property Name="AvaliacaoEstudanteRespostaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvaliacaoEstudanteID" Type="int" Nullable="false" />
+          <Property Name="QuestaoAlternativaID" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AvaliacaoResultadoEstudante">
+          <Key>
+            <PropertyRef Name="AvaliacaoResultadoEstudanteID" />
+          </Key>
+          <Property Name="AvaliacaoResultadoEstudanteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvaliacaoEstudanteID" Type="int" Nullable="false" />
+          <Property Name="Nota" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="DocenteID" />
+          </Key>
+          <Property Name="DocenteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estudante">
+          <Key>
+            <PropertyRef Name="EstudanteID" />
+          </Key>
+          <Property Name="EstudanteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questao">
+          <Key>
+            <PropertyRef Name="QuestaoID" />
+          </Key>
+          <Property Name="QuestaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Enunciado" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CriadoPor" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestaoAlternativa">
+          <Key>
+            <PropertyRef Name="QuestaoAlternativaID" />
+          </Key>
+          <Property Name="QuestaoAlternativaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestaoAlternativaTexto" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Correto" Type="bit" />
+          <Property Name="QuestaoID" Type="int" Nullable="false" />
+          <Property Name="CriadoPor" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questionario">
+          <Key>
+            <PropertyRef Name="QuestionarioID" />
+          </Key>
+          <Property Name="QuestionarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionarioNome" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CriadoPor" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionarioQuestao">
+          <Key>
+            <PropertyRef Name="QuestionarioQuestaoID" />
+          </Key>
+          <Property Name="QuestionarioQuestaoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionarioID" Type="int" />
+          <Property Name="QuestaoID" Type="int" />
+          <Property Name="Sequencia" Type="smallint" />
+          <Property Name="CriadoPor" Type="int" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioNome" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="DataRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Avaliacao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="DocenteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Questionario">
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionario">
+              <PropertyRef Name="QuestionarioID" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="QuestionarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="AvaliacaoID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_AvaliacaoEstudanteID">
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="1" />
+          <End Role="AvaliacaoEstudanteResposta" Type="Self.AvaliacaoEstudanteResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudanteResposta">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_Estudante">
+          <End Role="Estudante" Type="Self.Estudante" Multiplicity="1" />
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudante">
+              <PropertyRef Name="EstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudante">
+              <PropertyRef Name="EstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_QuestaoAlternativaID">
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="1" />
+          <End Role="AvaliacaoEstudanteResposta" Type="Self.AvaliacaoEstudanteResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestaoAlternativa">
+              <PropertyRef Name="QuestaoAlternativaID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudanteResposta">
+              <PropertyRef Name="QuestaoAlternativaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID">
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="1" />
+          <End Role="AvaliacaoResultadoEstudante" Type="Self.AvaliacaoResultadoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoResultadoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Docente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Docente" Type="Self.Docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Docente">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Estudante" Type="Self.Estudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Estudante">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestaoAlternativa_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="QuestaoAlternativa">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestaoAlternativa_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="1" />
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoID" />
+            </Principal>
+            <Dependent Role="QuestaoAlternativa">
+              <PropertyRef Name="QuestaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questionario_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Questionario">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="0..1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="QuestaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Questionario">
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="0..1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionario">
+              <PropertyRef Name="QuestionarioID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="QuestionarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="modelModelStoreContainer">
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvaliacaoEstudante" EntityType="Self.AvaliacaoEstudante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvaliacaoEstudanteResposta" EntityType="Self.AvaliacaoEstudanteResposta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvaliacaoResultadoEstudante" EntityType="Self.AvaliacaoResultadoEstudante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Docente" EntityType="Self.Docente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudante" EntityType="Self.Estudante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questao" EntityType="Self.Questao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestaoAlternativa" EntityType="Self.QuestaoAlternativa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questionario" EntityType="Self.Questionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionarioQuestao" EntityType="Self.QuestionarioQuestao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Avaliacao_Docente" Association="Self.FK_Avaliacao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Questionario" Association="Self.FK_Avaliacao_Questionario">
+            <End Role="Questionario" EntitySet="Questionario" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_Avaliacao" Association="Self.FK_AvaliacaoEstudante_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_AvaliacaoEstudanteID" Association="Self.FK_AvaliacaoEstudante_AvaliacaoEstudanteID">
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+            <End Role="AvaliacaoEstudanteResposta" EntitySet="AvaliacaoEstudanteResposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_Estudante" Association="Self.FK_AvaliacaoEstudante_Estudante">
+            <End Role="Estudante" EntitySet="Estudante" />
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_QuestaoAlternativaID" Association="Self.FK_AvaliacaoEstudante_QuestaoAlternativaID">
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+            <End Role="AvaliacaoEstudanteResposta" EntitySet="AvaliacaoEstudanteResposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID" Association="Self.FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID">
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+            <End Role="AvaliacaoResultadoEstudante" EntitySet="AvaliacaoResultadoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Docente_Usuario" Association="Self.FK_Docente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Docente" EntitySet="Docente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudante_Usuario" Association="Self.FK_Estudante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estudante" EntitySet="Estudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Docente" Association="Self.FK_Questao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestaoAlternativa_Docente" Association="Self.FK_QuestaoAlternativa_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestaoAlternativa_Questao" Association="Self.FK_QuestaoAlternativa_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questionario_Docente" Association="Self.FK_Questionario_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Questionario" EntitySet="Questionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Docente" Association="Self.FK_QuestionarioQuestao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Questao" Association="Self.FK_QuestionarioQuestao_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Questionario" Association="Self.FK_QuestionarioQuestao_Questionario">
+            <End Role="Questionario" EntitySet="Questionario" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="modelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="AvaliacaoID" />
+          </Key>
+          <Property Name="AvaliacaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvaliacaoNome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DocenteID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionarioID" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_Avaliacao_Docente" FromRole="Avaliacao" ToRole="Docente" />
+          <NavigationProperty Name="Questionario" Relationship="Self.FK_Avaliacao_Questionario" FromRole="Avaliacao" ToRole="Questionario" />
+          <NavigationProperty Name="AvaliacaoEstudante" Relationship="Self.FK_AvaliacaoEstudante_Avaliacao" FromRole="Avaliacao" ToRole="AvaliacaoEstudante" />
+        </EntityType>
+        <EntityType Name="AvaliacaoEstudante">
+          <Key>
+            <PropertyRef Name="AvaliacaoEstudanteID" />
+          </Key>
+          <Property Name="AvaliacaoEstudanteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvaliacaoID" Type="Int32" Nullable="false" />
+          <Property Name="EstudanteID" Type="Int32" Nullable="false" />
+          <Property Name="DataInicio" Type="DateTime" Precision="3" />
+          <Property Name="DataFim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_AvaliacaoEstudante_Avaliacao" FromRole="AvaliacaoEstudante" ToRole="Avaliacao" />
+          <NavigationProperty Name="AvaliacaoEstudanteResposta" Relationship="Self.FK_AvaliacaoEstudante_AvaliacaoEstudanteID" FromRole="AvaliacaoEstudante" ToRole="AvaliacaoEstudanteResposta" />
+          <NavigationProperty Name="Estudante" Relationship="Self.FK_AvaliacaoEstudante_Estudante" FromRole="AvaliacaoEstudante" ToRole="Estudante" />
+          <NavigationProperty Name="AvaliacaoResultadoEstudante" Relationship="Self.FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID" FromRole="AvaliacaoEstudante" ToRole="AvaliacaoResultadoEstudante" />
+        </EntityType>
+        <EntityType Name="AvaliacaoEstudanteResposta">
+          <Key>
+            <PropertyRef Name="AvaliacaoEstudanteRespostaID" />
+          </Key>
+          <Property Name="AvaliacaoEstudanteRespostaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvaliacaoEstudanteID" Type="Int32" Nullable="false" />
+          <Property Name="QuestaoAlternativaID" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AvaliacaoEstudante" Relationship="Self.FK_AvaliacaoEstudante_AvaliacaoEstudanteID" FromRole="AvaliacaoEstudanteResposta" ToRole="AvaliacaoEstudante" />
+          <NavigationProperty Name="QuestaoAlternativa" Relationship="Self.FK_AvaliacaoEstudante_QuestaoAlternativaID" FromRole="AvaliacaoEstudanteResposta" ToRole="QuestaoAlternativa" />
+        </EntityType>
+        <EntityType Name="AvaliacaoResultadoEstudante">
+          <Key>
+            <PropertyRef Name="AvaliacaoResultadoEstudanteID" />
+          </Key>
+          <Property Name="AvaliacaoResultadoEstudanteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvaliacaoEstudanteID" Type="Int32" Nullable="false" />
+          <Property Name="Nota" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AvaliacaoEstudante" Relationship="Self.FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID" FromRole="AvaliacaoResultadoEstudante" ToRole="AvaliacaoEstudante" />
+        </EntityType>
+        <EntityType Name="Docente">
+          <Key>
+            <PropertyRef Name="DocenteID" />
+          </Key>
+          <Property Name="DocenteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Docente" FromRole="Docente" ToRole="Avaliacao" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Docente_Usuario" FromRole="Docente" ToRole="Usuario" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_Docente" FromRole="Docente" ToRole="Questao" />
+          <NavigationProperty Name="QuestaoAlternativa" Relationship="Self.FK_QuestaoAlternativa_Docente" FromRole="Docente" ToRole="QuestaoAlternativa" />
+          <NavigationProperty Name="Questionario" Relationship="Self.FK_Questionario_Docente" FromRole="Docente" ToRole="Questionario" />
+          <NavigationProperty Name="QuestionarioQuestao" Relationship="Self.FK_QuestionarioQuestao_Docente" FromRole="Docente" ToRole="QuestionarioQuestao" />
+        </EntityType>
+        <EntityType Name="Estudante">
+          <Key>
+            <PropertyRef Name="EstudanteID" />
+          </Key>
+          <Property Name="EstudanteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AvaliacaoEstudante" Relationship="Self.FK_AvaliacaoEstudante_Estudante" FromRole="Estudante" ToRole="AvaliacaoEstudante" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Estudante_Usuario" FromRole="Estudante" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Questao">
+          <Key>
+            <PropertyRef Name="QuestaoID" />
+          </Key>
+          <Property Name="QuestaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Enunciado" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CriadoPor" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_Questao_Docente" FromRole="Questao" ToRole="Docente" />
+          <NavigationProperty Name="QuestaoAlternativa" Relationship="Self.FK_QuestaoAlternativa_Questao" FromRole="Questao" ToRole="QuestaoAlternativa" />
+          <NavigationProperty Name="QuestionarioQuestao" Relationship="Self.FK_QuestionarioQuestao_Questao" FromRole="Questao" ToRole="QuestionarioQuestao" />
+        </EntityType>
+        <EntityType Name="QuestaoAlternativa">
+          <Key>
+            <PropertyRef Name="QuestaoAlternativaID" />
+          </Key>
+          <Property Name="QuestaoAlternativaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestaoAlternativaTexto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correto" Type="Boolean" />
+          <Property Name="QuestaoID" Type="Int32" Nullable="false" />
+          <Property Name="CriadoPor" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AvaliacaoEstudanteResposta" Relationship="Self.FK_AvaliacaoEstudante_QuestaoAlternativaID" FromRole="QuestaoAlternativa" ToRole="AvaliacaoEstudanteResposta" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_QuestaoAlternativa_Docente" FromRole="QuestaoAlternativa" ToRole="Docente" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_QuestaoAlternativa_Questao" FromRole="QuestaoAlternativa" ToRole="Questao" />
+        </EntityType>
+        <EntityType Name="Questionario">
+          <Key>
+            <PropertyRef Name="QuestionarioID" />
+          </Key>
+          <Property Name="QuestionarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionarioNome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CriadoPor" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacao_Questionario" FromRole="Questionario" ToRole="Avaliacao" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_Questionario_Docente" FromRole="Questionario" ToRole="Docente" />
+          <NavigationProperty Name="QuestionarioQuestao" Relationship="Self.FK_QuestionarioQuestao_Questionario" FromRole="Questionario" ToRole="QuestionarioQuestao" />
+        </EntityType>
+        <EntityType Name="QuestionarioQuestao">
+          <Key>
+            <PropertyRef Name="QuestionarioQuestaoID" />
+          </Key>
+          <Property Name="QuestionarioQuestaoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionarioID" Type="Int32" />
+          <Property Name="QuestaoID" Type="Int32" />
+          <Property Name="Sequencia" Type="Int16" />
+          <Property Name="CriadoPor" Type="Int32" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_QuestionarioQuestao_Docente" FromRole="QuestionarioQuestao" ToRole="Docente" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_QuestionarioQuestao_Questao" FromRole="QuestionarioQuestao" ToRole="Questao" />
+          <NavigationProperty Name="Questionario" Relationship="Self.FK_QuestionarioQuestao_Questionario" FromRole="QuestionarioQuestao" ToRole="Questionario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioNome" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Docente" Relationship="Self.FK_Docente_Usuario" FromRole="Usuario" ToRole="Docente" />
+          <NavigationProperty Name="Estudante" Relationship="Self.FK_Estudante_Usuario" FromRole="Usuario" ToRole="Estudante" />
+        </EntityType>
+        <Association Name="FK_Avaliacao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="DocenteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Questionario">
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionario">
+              <PropertyRef Name="QuestionarioID" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="QuestionarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_Avaliacao">
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="1" />
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacao">
+              <PropertyRef Name="AvaliacaoID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_AvaliacaoEstudanteID">
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="1" />
+          <End Role="AvaliacaoEstudanteResposta" Type="Self.AvaliacaoEstudanteResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudanteResposta">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_Estudante">
+          <End Role="Estudante" Type="Self.Estudante" Multiplicity="1" />
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudante">
+              <PropertyRef Name="EstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudante">
+              <PropertyRef Name="EstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID">
+          <End Role="AvaliacaoEstudante" Type="Self.AvaliacaoEstudante" Multiplicity="1" />
+          <End Role="AvaliacaoResultadoEstudante" Type="Self.AvaliacaoResultadoEstudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AvaliacaoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Principal>
+            <Dependent Role="AvaliacaoResultadoEstudante">
+              <PropertyRef Name="AvaliacaoEstudanteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AvaliacaoEstudante_QuestaoAlternativaID">
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="1" />
+          <End Role="AvaliacaoEstudanteResposta" Type="Self.AvaliacaoEstudanteResposta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestaoAlternativa">
+              <PropertyRef Name="QuestaoAlternativaID" />
+            </Principal>
+            <Dependent Role="AvaliacaoEstudanteResposta">
+              <PropertyRef Name="QuestaoAlternativaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Docente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Docente" Type="Self.Docente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Docente">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestaoAlternativa_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="QuestaoAlternativa">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questionario_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="Questionario">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Docente">
+          <End Role="Docente" Type="Self.Docente" Multiplicity="1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Docente">
+              <PropertyRef Name="DocenteID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="CriadoPor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Estudante" Type="Self.Estudante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Estudante">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestaoAlternativa_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="1" />
+          <End Role="QuestaoAlternativa" Type="Self.QuestaoAlternativa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoID" />
+            </Principal>
+            <Dependent Role="QuestaoAlternativa">
+              <PropertyRef Name="QuestaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="0..1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="QuestaoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionarioQuestao_Questionario">
+          <End Role="Questionario" Type="Self.Questionario" Multiplicity="0..1" />
+          <End Role="QuestionarioQuestao" Type="Self.QuestionarioQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questionario">
+              <PropertyRef Name="QuestionarioID" />
+            </Principal>
+            <Dependent Role="QuestionarioQuestao">
+              <PropertyRef Name="QuestionarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="modelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" />
+          <EntitySet Name="AvaliacaoEstudante" EntityType="Self.AvaliacaoEstudante" />
+          <EntitySet Name="AvaliacaoEstudanteResposta" EntityType="Self.AvaliacaoEstudanteResposta" />
+          <EntitySet Name="AvaliacaoResultadoEstudante" EntityType="Self.AvaliacaoResultadoEstudante" />
+          <EntitySet Name="Docente" EntityType="Self.Docente" />
+          <EntitySet Name="Estudante" EntityType="Self.Estudante" />
+          <EntitySet Name="Questao" EntityType="Self.Questao" />
+          <EntitySet Name="QuestaoAlternativa" EntityType="Self.QuestaoAlternativa" />
+          <EntitySet Name="Questionario" EntityType="Self.Questionario" />
+          <EntitySet Name="QuestionarioQuestao" EntityType="Self.QuestionarioQuestao" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Avaliacao_Docente" Association="Self.FK_Avaliacao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Questionario" Association="Self.FK_Avaliacao_Questionario">
+            <End Role="Questionario" EntitySet="Questionario" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_Avaliacao" Association="Self.FK_AvaliacaoEstudante_Avaliacao">
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_AvaliacaoEstudanteID" Association="Self.FK_AvaliacaoEstudante_AvaliacaoEstudanteID">
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+            <End Role="AvaliacaoEstudanteResposta" EntitySet="AvaliacaoEstudanteResposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_Estudante" Association="Self.FK_AvaliacaoEstudante_Estudante">
+            <End Role="Estudante" EntitySet="Estudante" />
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID" Association="Self.FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID">
+            <End Role="AvaliacaoEstudante" EntitySet="AvaliacaoEstudante" />
+            <End Role="AvaliacaoResultadoEstudante" EntitySet="AvaliacaoResultadoEstudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AvaliacaoEstudante_QuestaoAlternativaID" Association="Self.FK_AvaliacaoEstudante_QuestaoAlternativaID">
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+            <End Role="AvaliacaoEstudanteResposta" EntitySet="AvaliacaoEstudanteResposta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Docente_Usuario" Association="Self.FK_Docente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Docente" EntitySet="Docente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Docente" Association="Self.FK_Questao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestaoAlternativa_Docente" Association="Self.FK_QuestaoAlternativa_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questionario_Docente" Association="Self.FK_Questionario_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="Questionario" EntitySet="Questionario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Docente" Association="Self.FK_QuestionarioQuestao_Docente">
+            <End Role="Docente" EntitySet="Docente" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudante_Usuario" Association="Self.FK_Estudante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estudante" EntitySet="Estudante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestaoAlternativa_Questao" Association="Self.FK_QuestaoAlternativa_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="QuestaoAlternativa" EntitySet="QuestaoAlternativa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Questao" Association="Self.FK_QuestionarioQuestao_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionarioQuestao_Questionario" Association="Self.FK_QuestionarioQuestao_Questionario">
+            <End Role="Questionario" EntitySet="Questionario" />
+            <End Role="QuestionarioQuestao" EntitySet="QuestionarioQuestao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="modelModelStoreContainer" CdmEntityContainer="modelEntities">
+          <EntitySetMapping Name="Avaliacao">
+            <EntityTypeMapping TypeName="modelModel.Avaliacao">
+              <MappingFragment StoreEntitySet="Avaliacao">
+                <ScalarProperty Name="AvaliacaoID" ColumnName="AvaliacaoID" />
+                <ScalarProperty Name="AvaliacaoNome" ColumnName="AvaliacaoNome" />
+                <ScalarProperty Name="DocenteID" ColumnName="DocenteID" />
+                <ScalarProperty Name="QuestionarioID" ColumnName="QuestionarioID" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvaliacaoEstudante">
+            <EntityTypeMapping TypeName="modelModel.AvaliacaoEstudante">
+              <MappingFragment StoreEntitySet="AvaliacaoEstudante">
+                <ScalarProperty Name="AvaliacaoEstudanteID" ColumnName="AvaliacaoEstudanteID" />
+                <ScalarProperty Name="AvaliacaoID" ColumnName="AvaliacaoID" />
+                <ScalarProperty Name="EstudanteID" ColumnName="EstudanteID" />
+                <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+                <ScalarProperty Name="DataFim" ColumnName="DataFim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvaliacaoEstudanteResposta">
+            <EntityTypeMapping TypeName="modelModel.AvaliacaoEstudanteResposta">
+              <MappingFragment StoreEntitySet="AvaliacaoEstudanteResposta">
+                <ScalarProperty Name="AvaliacaoEstudanteRespostaID" ColumnName="AvaliacaoEstudanteRespostaID" />
+                <ScalarProperty Name="AvaliacaoEstudanteID" ColumnName="AvaliacaoEstudanteID" />
+                <ScalarProperty Name="QuestaoAlternativaID" ColumnName="QuestaoAlternativaID" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvaliacaoResultadoEstudante">
+            <EntityTypeMapping TypeName="modelModel.AvaliacaoResultadoEstudante">
+              <MappingFragment StoreEntitySet="AvaliacaoResultadoEstudante">
+                <ScalarProperty Name="AvaliacaoResultadoEstudanteID" ColumnName="AvaliacaoResultadoEstudanteID" />
+                <ScalarProperty Name="AvaliacaoEstudanteID" ColumnName="AvaliacaoEstudanteID" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Docente">
+            <EntityTypeMapping TypeName="modelModel.Docente">
+              <MappingFragment StoreEntitySet="Docente">
+                <ScalarProperty Name="DocenteID" ColumnName="DocenteID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudante">
+            <EntityTypeMapping TypeName="modelModel.Estudante">
+              <MappingFragment StoreEntitySet="Estudante">
+                <ScalarProperty Name="EstudanteID" ColumnName="EstudanteID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questao">
+            <EntityTypeMapping TypeName="modelModel.Questao">
+              <MappingFragment StoreEntitySet="Questao">
+                <ScalarProperty Name="QuestaoID" ColumnName="QuestaoID" />
+                <ScalarProperty Name="Enunciado" ColumnName="Enunciado" />
+                <ScalarProperty Name="CriadoPor" ColumnName="CriadoPor" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestaoAlternativa">
+            <EntityTypeMapping TypeName="modelModel.QuestaoAlternativa">
+              <MappingFragment StoreEntitySet="QuestaoAlternativa">
+                <ScalarProperty Name="QuestaoAlternativaID" ColumnName="QuestaoAlternativaID" />
+                <ScalarProperty Name="QuestaoAlternativaTexto" ColumnName="QuestaoAlternativaTexto" />
+                <ScalarProperty Name="Correto" ColumnName="Correto" />
+                <ScalarProperty Name="QuestaoID" ColumnName="QuestaoID" />
+                <ScalarProperty Name="CriadoPor" ColumnName="CriadoPor" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questionario">
+            <EntityTypeMapping TypeName="modelModel.Questionario">
+              <MappingFragment StoreEntitySet="Questionario">
+                <ScalarProperty Name="QuestionarioID" ColumnName="QuestionarioID" />
+                <ScalarProperty Name="QuestionarioNome" ColumnName="QuestionarioNome" />
+                <ScalarProperty Name="CriadoPor" ColumnName="CriadoPor" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionarioQuestao">
+            <EntityTypeMapping TypeName="modelModel.QuestionarioQuestao">
+              <MappingFragment StoreEntitySet="QuestionarioQuestao">
+                <ScalarProperty Name="QuestionarioQuestaoID" ColumnName="QuestionarioQuestaoID" />
+                <ScalarProperty Name="QuestionarioID" ColumnName="QuestionarioID" />
+                <ScalarProperty Name="QuestaoID" ColumnName="QuestaoID" />
+                <ScalarProperty Name="Sequencia" ColumnName="Sequencia" />
+                <ScalarProperty Name="CriadoPor" ColumnName="CriadoPor" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="modelModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="UsuarioNome" ColumnName="UsuarioNome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="DataRegistro" ColumnName="DataRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8cc6266a06fe4470823057d49b37e911" Name="Diagram1">
+        <EntityTypeShape EntityType="modelModel.Avaliacao" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.AvaliacaoEstudante" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.AvaliacaoEstudanteResposta" Width="1.5" PointX="13" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.AvaliacaoResultadoEstudante" Width="1.5" PointX="12" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.Docente" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.Estudante" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.Questao" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.QuestaoAlternativa" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.Questionario" Width="1.5" PointX="5.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.QuestionarioQuestao" Width="1.5" PointX="10.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="modelModel.Usuario" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="modelModel.FK_Avaliacao_Docente" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_Avaliacao_Questionario" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_AvaliacaoEstudante_Avaliacao" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_AvaliacaoEstudante_AvaliacaoEstudanteID" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_AvaliacaoEstudante_Estudante" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_AvaliacaoResultadoEstudante_AvaliacaoEstudanteID" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_AvaliacaoEstudante_QuestaoAlternativaID" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_Docente_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_Questao_Docente" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_QuestaoAlternativa_Docente" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_Questionario_Docente" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_QuestionarioQuestao_Docente" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_Estudante_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_QuestaoAlternativa_Questao" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_QuestionarioQuestao_Questao" ManuallyRouted="false" />
+        <AssociationConnector Association="modelModel.FK_QuestionarioQuestao_Questionario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
