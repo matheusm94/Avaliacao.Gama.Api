@@ -34,6 +34,7 @@ namespace Avaliacao.Gama.Api.Controllers
         // GET: Avaliacaos/Create
         public ActionResult Create()
         {
+
             ViewBag.DocenteID = new SelectList(db.Docente, "DocenteID", "DocenteID");
             ViewBag.QuestionarioID = new SelectList(db.Questionario, "QuestionarioID", "QuestionarioNome");
             return View();

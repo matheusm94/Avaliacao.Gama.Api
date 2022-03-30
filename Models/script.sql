@@ -286,3 +286,16 @@ END
 --DROP TABLE Docente
 --DROP TABLE Estudante
 --DROP TABLE Usuario
+
+--insert into Usuario
+--values('Joao Silva', 'joaosilva@gmail.com', '1234567', getdate())
+
+--insert into Usuario
+--values('marcos marcos', 'marcos@gmail.com', '234567', getdate())
+
+insert into Estudante
+values(3, GETDATE())
+
+
+insert into Questionario
+values('Questionario', 1, GETDATE())

@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Controllers\AvaliacaoController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\DocentesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Docente.cs">
@@ -292,6 +293,11 @@
     <Content Include="Views\Avaliacao\Details.cshtml" />
     <Content Include="Views\Avaliacao\Edit.cshtml" />
     <Content Include="Views\Avaliacao\Index.cshtml" />
+    <Content Include="Views\Docentes\Create.cshtml" />
+    <Content Include="Views\Docentes\Delete.cshtml" />
+    <Content Include="Views\Docentes\Details.cshtml" />
+    <Content Include="Views\Docentes\Edit.cshtml" />
+    <Content Include="Views\Docentes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -328,6 +334,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Avaliacao.Gama.Models\Avaliacao.Gama.Models.csproj">
+      <Project>{fe37687d-02c8-4155-9894-d3faab559936}</Project>
+      <Name>Avaliacao.Gama.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

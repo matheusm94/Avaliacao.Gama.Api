@@ -12,12 +12,12 @@ namespace Avaliacao.Gama.Api.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            using (var db = new modelEntities())
-            {
-                var test = from a in db.QuestaoAlternativa
-                           select a;
-                var test2 = test.FirstOrDefault();
-            }
+            //using (var db = new modelEntities())
+            //{
+            //    var test = from a in db.QuestaoAlternativa
+            //               select a;
+            //    var test2 = test.FirstOrDefault();
+            //}
 
                 return View();
         }
